@@ -21,6 +21,10 @@
 		5F86EA812540802B00C5E852 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA802540802B00C5E852 /* RxDataSources */; };
 		5F86EA85254080DF00C5E852 /* RxSwiftExt in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA84254080DF00C5E852 /* RxSwiftExt */; };
 		5F86EA882540814500C5E852 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA872540814500C5E852 /* CocoaLumberjackSwift */; };
+		5F86EA8C2540820B00C5E852 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA8B2540820B00C5E852 /* Kingfisher */; };
+		5F86EA8F2540828E00C5E852 /* ReusableKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA8E2540828E00C5E852 /* ReusableKit */; };
+		5F86EA912540828E00C5E852 /* RxReusableKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA902540828E00C5E852 /* RxReusableKit */; };
+		5F86EA952540833900C5E852 /* RxViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA942540833900C5E852 /* RxViewController */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,12 +43,16 @@
 			files = (
 				5F86EA7F2540802B00C5E852 /* Differentiator in Frameworks */,
 				5F86EA7C25407FE100C5E852 /* ObjectMapper in Frameworks */,
+				5F86EA8F2540828E00C5E852 /* ReusableKit in Frameworks */,
+				5F86EA952540833900C5E852 /* RxViewController in Frameworks */,
 				5F86EA0125407A2D00C5E852 /* RxMoya in Frameworks */,
 				5F86EA85254080DF00C5E852 /* RxSwiftExt in Frameworks */,
 				5F86EA882540814500C5E852 /* CocoaLumberjackSwift in Frameworks */,
 				5F86EA7925407F9700C5E852 /* Swinject in Frameworks */,
 				5F86EA0A25407B8600C5E852 /* RxViewBinder in Frameworks */,
+				5F86EA912540828E00C5E852 /* RxReusableKit in Frameworks */,
 				5F86EA812540802B00C5E852 /* RxDataSources in Frameworks */,
+				5F86EA8C2540820B00C5E852 /* Kingfisher in Frameworks */,
 				5F86EA0525407AA400C5E852 /* Then in Frameworks */,
 				5F86E9FD254079D500C5E852 /* SnapKit in Frameworks */,
 			);
@@ -188,6 +196,10 @@
 				5F86EA802540802B00C5E852 /* RxDataSources */,
 				5F86EA84254080DF00C5E852 /* RxSwiftExt */,
 				5F86EA872540814500C5E852 /* CocoaLumberjackSwift */,
+				5F86EA8B2540820B00C5E852 /* Kingfisher */,
+				5F86EA8E2540828E00C5E852 /* ReusableKit */,
+				5F86EA902540828E00C5E852 /* RxReusableKit */,
+				5F86EA942540833900C5E852 /* RxViewController */,
 			);
 			productName = ImageSearchExample;
 			productReference = 5F47243B254076C1004CC06F /* ImageSearchExample.app */;
@@ -227,6 +239,9 @@
 				5F86EA7D2540802B00C5E852 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				5F86EA83254080DF00C5E852 /* XCRemoteSwiftPackageReference "RxSwiftExt" */,
 				5F86EA862540814500C5E852 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+				5F86EA8A2540820B00C5E852 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				5F86EA8D2540828D00C5E852 /* XCRemoteSwiftPackageReference "ReusableKit" */,
+				5F86EA932540833900C5E852 /* XCRemoteSwiftPackageReference "RxViewController" */,
 			);
 			productRefGroup = 5F47243C254076C1004CC06F /* Products */;
 			projectDirPath = "";
@@ -324,7 +339,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -379,7 +394,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -396,6 +411,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/ImageSearchExample/SupportFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -414,6 +430,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/ImageSearchExample/SupportFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -529,6 +546,30 @@
 				minimumVersion = 3.7.0;
 			};
 		};
+		5F86EA8A2540820B00C5E852 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.15.6;
+			};
+		};
+		5F86EA8D2540828D00C5E852 /* XCRemoteSwiftPackageReference "ReusableKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/ReusableKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		5F86EA932540833900C5E852 /* XCRemoteSwiftPackageReference "RxViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/RxViewController";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -581,6 +622,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5F86EA862540814500C5E852 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
 			productName = CocoaLumberjackSwift;
+		};
+		5F86EA8B2540820B00C5E852 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5F86EA8A2540820B00C5E852 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		5F86EA8E2540828E00C5E852 /* ReusableKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5F86EA8D2540828D00C5E852 /* XCRemoteSwiftPackageReference "ReusableKit" */;
+			productName = ReusableKit;
+		};
+		5F86EA902540828E00C5E852 /* RxReusableKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5F86EA8D2540828D00C5E852 /* XCRemoteSwiftPackageReference "ReusableKit" */;
+			productName = RxReusableKit;
+		};
+		5F86EA942540833900C5E852 /* RxViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5F86EA932540833900C5E852 /* XCRemoteSwiftPackageReference "RxViewController" */;
+			productName = RxViewController;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
