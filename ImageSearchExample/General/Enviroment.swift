@@ -19,6 +19,6 @@ public final class Enviroment {
 	}()
 
 	public static let kakaoKey: String = {
-		return "cd28eff5453b4711aaf1b4bfe08245ac"
+		return "KakaoAK cd28eff5453b4711aaf1b4bfe08245ac"
 	}()
 }

@@ -7,14 +7,23 @@
 
 import UIKit
 
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+	var window: UIWindow?
+
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		// Override point for customization after application launch.
+
+		self.makeRootViewController()
 		return true
 	}
 
+	private func makeRootViewController() {
+		self.window = UIWindow(frame: UIScreen.main.bounds).then { window in
+			window.rootViewController = AppNavigator.home.viewController
+			window.backgroundColor = .white
+			window.makeKeyAndVisible()
+		}
+	}
 }
 

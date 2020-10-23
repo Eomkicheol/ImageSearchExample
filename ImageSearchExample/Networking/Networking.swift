@@ -5,6 +5,7 @@
 //  Created by 엄기철 on 2020/10/23.
 //
 
+import UIKit
 import Foundation
 import SystemConfiguration
 
@@ -13,6 +14,9 @@ import RxMoya
 import Moya
 import RxSwift
 import RxCocoa
+
+
+let nonErrorMessage: String = "알 수 없는 에러 발생"
 
 protocol NetworkingProtocol {
 	func request(_ target: TargetType, file: StaticString, function: StaticString, line: UInt) -> Single<Response>
@@ -80,7 +84,7 @@ final class Networking: MoyaProvider<MultiTarget>, NetworkingProtocol {
 			})
 			.catchError { result in
 				guard let error = result as? MoyaError else {
-					return .error(BaseApiError.errorMessage("알 수 없는 에러 발생"))
+					return .error(BaseApiError.errorMessage(nonErrorMessage))
 				}
 
 				if case let .statusCode(status) = error {
@@ -91,7 +95,7 @@ final class Networking: MoyaProvider<MultiTarget>, NetworkingProtocol {
 						}
 					}
 				}
-				return .error(BaseApiError.errorMessage("알 수 없는 에러 발생"))
+				return .error(BaseApiError.errorMessage(nonErrorMessage))
 		}
 	}
 
@@ -100,6 +104,41 @@ final class Networking: MoyaProvider<MultiTarget>, NetworkingProtocol {
 
 		func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result <URLRequest, MoyaError>) -> Void) {
 
+			var zeroAddress = sockaddr_in()
+			zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
+			zeroAddress.sin_family = sa_family_t(AF_INET)
+
+			guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
+				$0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+					SCNetworkReachabilityCreateWithAddress(nil, $0)
+				}
+			}) else {
+				completion(.success(urlRequest))
+				return
+			}
+
+			var flags: SCNetworkReachabilityFlags = []
+
+			if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
+				DispatchQueue.main.async {
+					UIWindow(frame: UIScreen.main.bounds).switchRootViewController(rootViewController: AppNavigator.networkingConnection.viewController, animated: true, completion: nil)
+				}
+				completion(.failure(MoyaError.underlying(BaseApiError.errorMessage(nonErrorMessage), nil)))
+				return
+			}
+
+			let isReachable = flags.contains(.reachable)
+			let needsConnection = flags.contains(.connectionRequired)
+
+			if isReachable && !needsConnection {
+				completion(.success(urlRequest))
+			} else {
+				DispatchQueue.main.async {
+					UIWindow(frame: UIScreen.main.bounds).switchRootViewController(rootViewController: AppNavigator.networkingConnection.viewController, animated: true, completion: nil)
+				}
+				completion(.failure(MoyaError.underlying(BaseApiError.errorMessage(nonErrorMessage), nil)))
+				return
+			}
 		}
 	}
 }
