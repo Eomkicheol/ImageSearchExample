@@ -80,17 +80,31 @@
 		5F47243D254076C1004CC06F /* ImageSearchExample */ = {
 			isa = PBXGroup;
 			children = (
+				5F66D096254254FF00548ADF /* Repositories */,
+				5F66D095254254D200548ADF /* Navigator */,
 				5F86EA6C25407D2500C5E852 /* Core */,
 				5F86EA7625407EB100C5E852 /* Entities */,
-				5F86EA7525407EA900C5E852 /* Navigator */,
 				5F86EA7225407DE500C5E852 /* Networking */,
 				5F86EA7125407DDF00C5E852 /* Base */,
 				5F86EA7425407E4C00C5E852 /* UseCase */,
-				5F86EA7325407E3F00C5E852 /* Repositories */,
 				5F86EA7025407D3F00C5E852 /* Scene */,
 				5FB165CB254077FD009754B7 /* SupportFiles */,
 			);
 			path = ImageSearchExample;
+			sourceTree = "<group>";
+		};
+		5F66D095254254D200548ADF /* Navigator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Navigator;
+			sourceTree = "<group>";
+		};
+		5F66D096254254FF00548ADF /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		5F86EA6C25407D2500C5E852 /* Core */ = {
@@ -128,14 +142,7 @@
 			isa = PBXGroup;
 			children = (
 			);
-			name = Networking;
-			sourceTree = "<group>";
-		};
-		5F86EA7325407E3F00C5E852 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Repositories;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		5F86EA7425407E4C00C5E852 /* UseCase */ = {
@@ -145,18 +152,11 @@
 			name = UseCase;
 			sourceTree = "<group>";
 		};
-		5F86EA7525407EA900C5E852 /* Navigator */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Navigator;
-			sourceTree = "<group>";
-		};
 		5F86EA7625407EB100C5E852 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Entities;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		5FB165CB254077FD009754B7 /* SupportFiles */ = {
