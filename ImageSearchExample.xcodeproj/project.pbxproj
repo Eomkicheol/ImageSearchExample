@@ -180,19 +180,11 @@
 			isa = PBXGroup;
 			children = (
 				5F66D1B62542BBF800548ADF /* Section */,
-				5F66D1B22542B46E00548ADF /* View */,
 				5F66D1AC2542AF4700548ADF /* HomeViewController.swift */,
 				5F66D1AD2542AF4700548ADF /* HomeViewModel.swift */,
 			);
 			name = Home;
-			sourceTree = "<group>";
-		};
-		5F66D1B22542B46E00548ADF /* View */ = {
-			isa = PBXGroup;
-			children = (
-				5F66D1B32542B48000548ADF /* SearchBarContainerView.swift */,
-			);
-			path = View;
+			path = Scene/Home;
 			sourceTree = "<group>";
 		};
 		5F66D1B62542BBF800548ADF /* Section */ = {
@@ -200,7 +192,16 @@
 			children = (
 				5F66D1B72542BC1700548ADF /* HomeSection.swift */,
 			);
-			name = Section;
+			path = Section;
+			sourceTree = "<group>";
+		};
+		5F66D1BB2542C1A000548ADF /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				5F66D1B32542B48000548ADF /* SearchBarContainerView.swift */,
+			);
+			name = SearchBar;
+			path = Scene/SearchBar;
 			sourceTree = "<group>";
 		};
 		5F86EA6C25407D2500C5E852 /* Core */ = {
@@ -216,6 +217,7 @@
 		5F86EA7025407D3F00C5E852 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				5F66D1BB2542C1A000548ADF /* SearchBar */,
 				5F66D1AB2542AF3B00548ADF /* Home */,
 				5F66D1A22542A5BE00548ADF /* ConnectionError */,
 			);
@@ -227,7 +229,7 @@
 			children = (
 				5F66D1A82542A69D00548ADF /* BaseViewController.swift */,
 			);
-			name = Base;
+			path = Base;
 			sourceTree = "<group>";
 		};
 		5F86EA7225407DE500C5E852 /* Networking */ = {

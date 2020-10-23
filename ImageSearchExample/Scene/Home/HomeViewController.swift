@@ -13,6 +13,7 @@ import RxCocoa
 import RxViewBinder
 import RxDataSources
 import ReusableKit
+import RxSwiftExt
 import Then
 import SnapKit
 
@@ -20,23 +21,32 @@ final class HomeViewController: BaseViewController, BindView {
 
 	typealias ViewBinder = HomeViewModel
 
+	typealias SearchImageSection = RxCollectionViewSectionedReloadDataSource<HomeSection>
+
 	// MARK: Constants
 	private enum Constants { }
 
 	// MARK: Properties
 	let flowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
 
+//	enum Reusable {
+//		//static let searchImageCell = ReusableCell<UICollectViewCell>()
+//	}
+
 
 	// MARK: UI Properties
-
-	lazy var searchBaContainerView = SearchBarContainerView(customSearchBar: searchBar).then {
-		$0.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
-	}
 
 	let searchBar = UISearchBar().then {
 		$0.setImage(UIImage(), for: .search, state: .normal)
 		$0.placeholder = "검색어를 입력해 주세요."
 	}
+
+	lazy var searchBaContainerView = SearchBarContainerView(customSearchBar: searchBar).then {
+		$0.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
+	}
+
+
+
 
 	lazy var collectionView = UICollectionView(frame: .zero,
 	                                           collectionViewLayout: self.flowLayout).then { view in
@@ -49,6 +59,8 @@ final class HomeViewController: BaseViewController, BindView {
 		view.showsVerticalScrollIndicator = false
 		view.showsHorizontalScrollIndicator = false
 		view.keyboardDismissMode = .onDrag
+
+
 	}
 
 
@@ -99,13 +111,12 @@ final class HomeViewController: BaseViewController, BindView {
 			.bind(to: viewBinder.command)
 			.disposed(by: self.disposeBag)
 
-		self.searchBar.rx.text
-			.orEmpty
-			.distinctUntilChanged()
+		self.searchBar.rx.text.changed
 			.debounce(.seconds(1), scheduler: MainScheduler.instance)
-			.map { keyword -> ViewBinder.Command in
-				return ViewBinder.Command.searchKeyword(keyword)
-			}
+			.filter { $0 != "" }
+			.map({ keyword -> ViewBinder.Command in
+				return ViewBinder.Command.searchKeyword(keyword ?? "")
+			})
 			.bind(to: viewBinder.command)
 			.disposed(by: self.disposeBag)
 	}
