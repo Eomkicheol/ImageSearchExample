@@ -9,7 +9,6 @@ import Foundation
 
 
 struct SearchImageDTO {
-
 	var imageUrl: String
 	var displaySiteName: String
 	var dateTime: String

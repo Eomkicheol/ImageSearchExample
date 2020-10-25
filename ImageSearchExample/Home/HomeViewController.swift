@@ -123,7 +123,6 @@ final class HomeViewController: BaseViewController, BindView {
 
 		self.searchBar.rx.text.changed
 			.debounce(.seconds(1), scheduler: MainScheduler.instance)
-			.filter { $0 != "" }
 			.map({ keyword -> ViewBinder.Command in
 				return ViewBinder.Command.searchKeyword(keyword ?? "")
 			})

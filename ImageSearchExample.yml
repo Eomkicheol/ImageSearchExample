@@ -1,0 +1,27 @@
+targets: 
+  ImagesearchExample: 
+    platform: iOS
+    type: application
+    settings:
+      base:
+       SWIFT_VERSION: 5.2
+       INFOPLIST_FILE: ImagesearchExample/SupportFiles/Info.plist
+       PRODUCT_BUNDLE_IDENTIFIER: Hanzo.ImageSearchExample
+    sources:
+      - ImagesearchExample
+    dependencies:
+      - package: SnapKit
+      - package: Moya
+      - package: Then
+      - package: RxSwift
+      - package: Swinject
+      - package: ObjectMapper
+      - package: Swinject
+      - package: RxDataSource
+      - package: CocoaLumberjack
+      - package: Kingfisher
+      - package: ReusableKit
+      - package: RxViewController
+
+
+

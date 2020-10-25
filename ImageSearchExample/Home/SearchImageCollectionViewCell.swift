@@ -77,7 +77,7 @@ final class SearchImageCollectionViewCell: BaseCollectionViewCell, BindCell {
 		viewBinder.state
 			.configureImage
 			.drive(onNext: { [weak self] items in
-				if let url = URL(string: items.imageUrl) {
+				if let url = URL(string: items.thumbnailUrl) {
 					self?.imageView.kf.setImage(with: url, options: [.cacheMemoryOnly])
 				}
 			})

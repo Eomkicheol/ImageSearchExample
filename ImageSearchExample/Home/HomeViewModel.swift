@@ -100,7 +100,17 @@ final class HomeViewModel: ViewBindable {
 	}
 
 	private func searchImage(_ keyword: String) {
-		self.service.searchImage(query: keyword)
+
+
+		let ob = Observable<String>.just(keyword).publish()
+
+
+		ob.filter { keyword -> Bool in
+			return keyword != ""
+		}
+			.flatMap { _ -> Observable<String> in
+				return self.service.searchImage(query: keyword)
+			}
 			.map { res -> Search in
 				return Search(JSONString: res) ?? Search()
 			}
@@ -108,7 +118,7 @@ final class HomeViewModel: ViewBindable {
 				guard let self = self else { return [] }
 
 				self.sections = [self.searchImageSection(entities),
-								 self.emptySection(entities)]
+					self.emptySection(entities)]
 
 				return self.sections
 			}
@@ -116,6 +126,21 @@ final class HomeViewModel: ViewBindable {
 				self?.action.fetchSearchImageAction.accept($0)
 			})
 			.disposed(by: self.disposeBag)
+
+
+		ob
+			.filter { keyword -> Bool in
+				return keyword == ""
+			}
+			.subscribe(onNext: { [weak self] _ in
+				guard let self = self else { return }
+				self.sections = [HomeSection.init(identity: .image, items: []),
+					           HomeSection.init(identity: .empty, items: [])]
+				self.action.fetchSearchImageAction.accept(self.sections)
+			})
+			.disposed(by: self.disposeBag)
+
+		ob.connect().disposed(by: self.disposeBag)
 	}
 
 	private func itemSelected(_ target: Int) {
