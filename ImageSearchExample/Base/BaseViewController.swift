@@ -20,8 +20,6 @@ class BaseViewController: UIViewController {
 	private(set) var didSetupConstraints = false
 	private(set) var didSetupSubViews = false
 
-	private var scrollViewOriginalContentInsetAdjustmentBehaviorRawValue: Int?
-
 	// MARK: UI Properties
 
 
@@ -49,17 +47,6 @@ class BaseViewController: UIViewController {
 		self.configureUI()
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-		//fix is 11 scroll view bug
-		if let scrollView = self.view.subviews.first as? UIScrollView {
-			self.scrollViewOriginalContentInsetAdjustmentBehaviorRawValue = scrollView.contentInsetAdjustmentBehavior.rawValue
-			scrollView.contentInsetAdjustmentBehavior = .never
-		}
-
-	}
-
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
@@ -68,12 +55,6 @@ class BaseViewController: UIViewController {
 
 		} else {
 			self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-		}
-
-		if let scrollView = self.view.subviews.first as? UIScrollView,
-			let rawValue = self.scrollViewOriginalContentInsetAdjustmentBehaviorRawValue,
-			let behavior = UIScrollView.ContentInsetAdjustmentBehavior(rawValue: rawValue) {
-			scrollView.contentInsetAdjustmentBehavior = behavior
 		}
 	}
 

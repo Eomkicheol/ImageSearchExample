@@ -65,10 +65,11 @@ final class HomeViewController: BaseViewController, BindView {
 		self.flowLayout.minimumInteritemSpacing = 0.0
 
 		view.backgroundColor = UIColor(red: 242 / 255, green: 242 / 255, blue: 243 / 255, alpha: 1.0)
+		view.contentInset.bottom = 80
 		view.showsVerticalScrollIndicator = false
 		view.showsHorizontalScrollIndicator = false
 		view.keyboardDismissMode = .onDrag
-
+		view.contentInsetAdjustmentBehavior = .never
 		view.register(Reusable.imageCell)
 		view.register(Reusable.emptyCell)
 	}
@@ -107,7 +108,8 @@ final class HomeViewController: BaseViewController, BindView {
 		super.setupConstraints()
 
 		collectionView.snp.makeConstraints {
-			$0.edges.equalToSuperview()
+			$0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+			$0.left.right.bottom.equalToSuperview()
 		}
 	}
 
@@ -158,6 +160,13 @@ final class HomeViewController: BaseViewController, BindView {
 				self?.searchBar.resignFirstResponder()
 			})
 			.drive(collectionView.rx.items(dataSource: dataSource))
+			.disposed(by: self.disposeBag)
+
+		viewBinder.state
+			.moveToDetailImage
+			.drive(onNext: { [weak self] dto in
+				self?.navigationController?.pushViewController(AppNavigator.detail(dto: dto).viewController, animated: true)
+			})
 			.disposed(by: self.disposeBag)
 	}
 

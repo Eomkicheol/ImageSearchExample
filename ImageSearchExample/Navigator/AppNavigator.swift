@@ -10,6 +10,7 @@ import UIKit
 enum AppNavigator {
 	case home
 	case networkingConnection
+	case detail(dto: SearchImageDTO)
 }
 
 extension AppNavigator {
@@ -52,6 +53,11 @@ extension AppNavigator {
 		case .networkingConnection:
 			let viewModel: NetworkingConnectionErrorViewModel = NetworkingConnectionErrorViewModel()
 			let viewController: NetworkingConnectionErrorViewController = NetworkingConnectionErrorViewController(viewBinder: viewModel)
+			return viewController
+
+		case .detail(let dto):
+			let viewModel: DetailImageViewModel = DetailImageViewModel()
+			let viewController: DetailImageViewController = DetailImageViewController(viewBinder: viewModel, dto: dto)
 			return viewController
 		}
 	}

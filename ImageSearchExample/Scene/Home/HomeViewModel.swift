@@ -44,7 +44,7 @@ final class HomeViewModel: ViewBindable {
 		init(action: Action) {
 			fetchSearchImage = action.fetchSearchImageAction.asDriver(onErrorJustReturn: [])
 			showKeyboard = action.showKeyboardAction.asDriver(onErrorJustReturn: ())
-			moveToDetailImage = action.moveToDetailImageAction.asDriver(onErrorJustReturn: SearchImageDTO(imageUrl: "", displaySiteName: "", dateTime: ""))
+			moveToDetailImage = action.moveToDetailImageAction.asDriver(onErrorJustReturn: SearchImageDTO(imageUrl: "", displaySiteName: "", dateTime: "", width: 0, height: 0))
 		}
 	}
 
@@ -152,11 +152,13 @@ final class HomeViewModel: ViewBindable {
 			return nil
 		}
 
-		let doucement = cellModel[target].items
+		let document = cellModel[target].items
 
-		let dto = SearchImageDTO(imageUrl: doucement.imageUrl,
-		                         displaySiteName: doucement.displaySitename,
-		                         dateTime: doucement.datetime)
+		let dto = SearchImageDTO(imageUrl: document.imageUrl,
+								 displaySiteName: document.displaySitename,
+								 dateTime: document.datetime,
+								 width: document.width,
+								 height: document.height)
 
 		self.action.moveToDetailImageAction.accept(dto)
 	}

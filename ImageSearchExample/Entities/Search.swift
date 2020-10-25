@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 import ObjectMapper
 
@@ -62,20 +63,20 @@ struct Documents: Mappable {
 	var datetime: String
 	var displaySitename: String
 	var docUrl: String
-	var height: Int
+	var height: CGFloat
 	var imageUrl: String
 	var thumbnailUrl: String
-	var width: Int
+	var width: CGFloat
 
 	init() {
 		collection = ""
 		datetime = ""
 		displaySitename = ""
 		docUrl = ""
-		height = 0
+		height = 0.0
 		imageUrl = ""
 		thumbnailUrl = ""
-		width = 0
+		width = 0.0
 	}
 
 	init?(map: Map) {
@@ -83,10 +84,10 @@ struct Documents: Mappable {
 		datetime = ""
 		displaySitename = ""
 		docUrl = ""
-		height = 0
+		height = 0.0
 		imageUrl = ""
 		thumbnailUrl = ""
-		width = 0
+		width = 0.0
 	}
 
 	mutating func mapping(map: Map) {
