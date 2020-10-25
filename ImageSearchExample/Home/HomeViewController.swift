@@ -13,7 +13,6 @@ import RxCocoa
 import RxViewBinder
 import RxDataSources
 import ReusableKit
-import RxSwiftExt
 import Then
 import SnapKit
 
@@ -29,10 +28,25 @@ final class HomeViewController: BaseViewController, BindView {
 	// MARK: Properties
 	let flowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
 
-//	enum Reusable {
-//		//static let searchImageCell = ReusableCell<UICollectViewCell>()
-//	}
+	enum Reusable {
+		static let imageCell = ReusableCell<SearchImageCollectionViewCell>()
+		static let emptyCell = ReusableCell<EmptyCollectionViewCell>()
+	}
 
+	let dataSource: SearchImageSection = SearchImageSection(configureCell: { dataSource, collectionView, indexPath, item -> UICollectionViewCell in
+		switch item {
+		case .searchImageItem(let viewModel):
+			let cell = collectionView.dequeue(Reusable.imageCell, for: indexPath)
+			cell.configure(viewBinder: viewModel)
+			return cell
+
+		case .empty:
+			let cell = collectionView.dequeue(Reusable.emptyCell, for: indexPath)
+			cell.configure()
+			return cell
+		}
+
+	})
 
 	// MARK: UI Properties
 
@@ -45,22 +59,18 @@ final class HomeViewController: BaseViewController, BindView {
 		$0.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
 	}
 
-
-
-
 	lazy var collectionView = UICollectionView(frame: .zero,
 	                                           collectionViewLayout: self.flowLayout).then { view in
 		self.flowLayout.scrollDirection = .vertical
-		self.flowLayout.minimumLineSpacing = 0.0
 		self.flowLayout.minimumInteritemSpacing = 0.0
-		self.flowLayout.sectionInset = .init(top: 0, left: 0, bottom: 0, right: 0)
 
 		view.backgroundColor = UIColor(red: 242 / 255, green: 242 / 255, blue: 243 / 255, alpha: 1.0)
 		view.showsVerticalScrollIndicator = false
 		view.showsHorizontalScrollIndicator = false
 		view.keyboardDismissMode = .onDrag
 
-
+		view.register(Reusable.imageCell)
+		view.register(Reusable.emptyCell)
 	}
 
 
@@ -119,6 +129,14 @@ final class HomeViewController: BaseViewController, BindView {
 			})
 			.bind(to: viewBinder.command)
 			.disposed(by: self.disposeBag)
+
+		collectionView.rx.itemSelected
+			.throttle(.milliseconds(5), scheduler: MainScheduler.instance)
+			.map { indexPath -> ViewBinder.Command in
+				return ViewBinder.Command.selectedItem(indexPath.row)
+			}
+			.bind(to: viewBinder.command)
+			.disposed(by: self.disposeBag)
 	}
 
 	// MARK: State
@@ -134,16 +152,49 @@ final class HomeViewController: BaseViewController, BindView {
 				self?.searchBar.becomeFirstResponder()
 			})
 			.disposed(by: self.disposeBag)
+
+		viewBinder.state
+			.fetchSearchImage
+			.do(onNext: { [weak self] _ in
+				self?.searchBar.resignFirstResponder()
+			})
+			.drive(collectionView.rx.items(dataSource: dataSource))
+			.disposed(by: self.disposeBag)
 	}
 
 	private func configureNavigationBar() {
-		self.title = "이미지 검색"
 		self.navigationItem.titleView = searchBaContainerView
 	}
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return .init(width: collectionView.bounds.width, height: 100)
+
+		let width = collectionView.bounds.width
+
+		switch dataSource[indexPath] {
+		case .searchImageItem:
+			return SearchImageCollectionViewCell.size(width: (width / 3) - 8 - 8)
+		case .empty:
+			return .init(width: width, height: collectionView.bounds.height)
+		}
+	}
+
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+		switch dataSource[section].identity {
+		case .image:
+			return 16.0
+		case .empty:
+			return 0.0
+		}
+	}
+
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+		switch dataSource[section].identity {
+		case .image:
+			return .init(top: 0, left: 8, bottom: 0, right: 8)
+		case .empty:
+			return .init(top: 0, left: 0, bottom: 0, right: 0)
+		}
 	}
 }

@@ -13,7 +13,7 @@ public final class Enviroment {
 
 	public static let baseURL: URL = {
 		var component = URLComponents(string: baseHost)
-		component?.path = "/v2/search/web"
+		component?.path = "/v2/search"
 		let url = component?.url
 		return url!
 	}()

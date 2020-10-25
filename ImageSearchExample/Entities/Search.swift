@@ -5,21 +5,23 @@
 //  Created by 엄기철 on 2020/10/23.
 //
 
+import Foundation
+
 import ObjectMapper
 
 struct Search: Mappable {
 
 	var meta: Meta
-	var documents: Documents
+	var documents: [Documents]
 
 	init() {
 		meta = Meta()
-		documents = Documents()
+		documents = []
 	}
 
 	init?(map: Map) {
 		meta = Meta()
-		documents = Documents()
+		documents = []
 	}
 
 	mutating func mapping(map: Map) {
@@ -89,7 +91,7 @@ struct Documents: Mappable {
 
 	mutating func mapping(map: Map) {
 		collection <- map["collection"]
-		datetime <- map["datetime"]
+		datetime <- (map["datetime"], toDateTransform())
 		displaySitename <- map["display_sitename"]
 		docUrl <- map["doc_url"]
 		height <- map["height"]
@@ -97,4 +99,25 @@ struct Documents: Mappable {
 		thumbnailUrl <- map["thumbnail_url"]
 		width <- map["width"]
 	}
+}
+
+
+func toDateTransform() -> TransformOf<String, String> {
+	return TransformOf(fromJSON: { (value: String?) -> String? in
+		let dateFormatter = ISO8601DateFormatter()
+		dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+
+		guard let target = value else { return nil }
+
+		guard let date = dateFormatter.date(from: target) else { return nil }
+
+		let convertDateFormatter = DateFormatter()
+		convertDateFormatter.locale = Locale(identifier: "ko_KR")
+		convertDateFormatter.dateFormat = "yyyy/MM/dd (EE) a h:mm"
+		convertDateFormatter.timeZone = .autoupdatingCurrent
+		return convertDateFormatter.string(from: date)
+
+	}, toJSON: { _ in
+		return nil
+	})
 }

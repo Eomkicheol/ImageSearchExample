@@ -12,7 +12,8 @@ import Moya
 final class AccessToKenPlugin: PluginType {
 	func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
 		var headerRequest = request
+
 		headerRequest.addValue(Enviroment.kakaoKey, forHTTPHeaderField: "Authorization")
-		return request
+		return headerRequest
 	}
 }

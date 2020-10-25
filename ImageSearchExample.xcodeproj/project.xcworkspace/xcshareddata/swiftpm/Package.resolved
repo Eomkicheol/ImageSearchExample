@@ -92,15 +92,6 @@
         }
       },
       {
-        "package": "RxSwiftExt",
-        "repositoryURL": "https://github.com/RxSwiftCommunity/RxSwiftExt",
-        "state": {
-          "branch": null,
-          "revision": "9620cd55a58c1cf3370375140c45379c40049f55",
-          "version": "5.2.0"
-        }
-      },
-      {
         "package": "RxViewBinder",
         "repositoryURL": "https://github.com/magi82/RxViewBinder",
         "state": {

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F2AC70A25446870003034AF /* EmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2AC70825446870003034AF /* EmptyCollectionViewCell.swift */; };
+		5F2AC71125446A99003034AF /* SearchImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2AC71025446A99003034AF /* SearchImageCellViewModel.swift */; };
+		5F2CF84A2545105900C942D7 /* SearchImageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2CF8492545105900C942D7 /* SearchImageDTO.swift */; };
 		5F47243F254076C1004CC06F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47243E254076C1004CC06F /* AppDelegate.swift */; };
 		5F472448254076C1004CC06F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F472447254076C1004CC06F /* Assets.xcassets */; };
 		5F47244B254076C1004CC06F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F472449254076C1004CC06F /* LaunchScreen.storyboard */; };
@@ -27,6 +30,11 @@
 		5F66D1AF2542AF4700548ADF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F66D1AD2542AF4700548ADF /* HomeViewModel.swift */; };
 		5F66D1B42542B48000548ADF /* SearchBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F66D1B32542B48000548ADF /* SearchBarContainerView.swift */; };
 		5F66D1B82542BC1700548ADF /* HomeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F66D1B72542BC1700548ADF /* HomeSection.swift */; };
+		5F7A8F11254310B8004CD4DD /* SearchImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A8F0F254310B8004CD4DD /* SearchImageCollectionViewCell.swift */; };
+		5F7A8F142543111E004CD4DD /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A8F132543111E004CD4DD /* BaseCollectionViewCell.swift */; };
+		5F7A8F172544500F004CD4DD /* SearchImageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A8F162544500F004CD4DD /* SearchImageAPI.swift */; };
+		5F7A8F1B2544533F004CD4DD /* ImageSearchRepositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A8F1A2544533F004CD4DD /* ImageSearchRepositories.swift */; };
+		5F7A8F1E2544549E004CD4DD /* ImageSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A8F1D2544549E004CD4DD /* ImageSearchUseCase.swift */; };
 		5F86E9FD254079D500C5E852 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86E9FC254079D500C5E852 /* SnapKit */; };
 		5F86EA0125407A2D00C5E852 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA0025407A2D00C5E852 /* RxMoya */; };
 		5F86EA0525407AA400C5E852 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA0425407AA400C5E852 /* Then */; };
@@ -35,7 +43,6 @@
 		5F86EA7C25407FE100C5E852 /* ObjectMapper in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA7B25407FE100C5E852 /* ObjectMapper */; };
 		5F86EA7F2540802B00C5E852 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA7E2540802B00C5E852 /* Differentiator */; };
 		5F86EA812540802B00C5E852 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA802540802B00C5E852 /* RxDataSources */; };
-		5F86EA85254080DF00C5E852 /* RxSwiftExt in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA84254080DF00C5E852 /* RxSwiftExt */; };
 		5F86EA882540814500C5E852 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA872540814500C5E852 /* CocoaLumberjackSwift */; };
 		5F86EA8C2540820B00C5E852 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA8B2540820B00C5E852 /* Kingfisher */; };
 		5F86EA8F2540828E00C5E852 /* ReusableKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5F86EA8E2540828E00C5E852 /* ReusableKit */; };
@@ -44,6 +51,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F2AC70825446870003034AF /* EmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCollectionViewCell.swift; sourceTree = "<group>"; };
+		5F2AC71025446A99003034AF /* SearchImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImageCellViewModel.swift; sourceTree = "<group>"; };
+		5F2CF8492545105900C942D7 /* SearchImageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImageDTO.swift; sourceTree = "<group>"; };
 		5F47243B254076C1004CC06F /* ImageSearchExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageSearchExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F47243E254076C1004CC06F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F472447254076C1004CC06F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,6 +76,11 @@
 		5F66D1AD2542AF4700548ADF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		5F66D1B32542B48000548ADF /* SearchBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarContainerView.swift; sourceTree = "<group>"; };
 		5F66D1B72542BC1700548ADF /* HomeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSection.swift; sourceTree = "<group>"; };
+		5F7A8F0F254310B8004CD4DD /* SearchImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		5F7A8F132543111E004CD4DD /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		5F7A8F162544500F004CD4DD /* SearchImageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImageAPI.swift; sourceTree = "<group>"; };
+		5F7A8F1A2544533F004CD4DD /* ImageSearchRepositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchRepositories.swift; sourceTree = "<group>"; };
+		5F7A8F1D2544549E004CD4DD /* ImageSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +93,6 @@
 				5F86EA8F2540828E00C5E852 /* ReusableKit in Frameworks */,
 				5F86EA952540833900C5E852 /* RxViewController in Frameworks */,
 				5F86EA0125407A2D00C5E852 /* RxMoya in Frameworks */,
-				5F86EA85254080DF00C5E852 /* RxSwiftExt in Frameworks */,
 				5F86EA882540814500C5E852 /* CocoaLumberjackSwift in Frameworks */,
 				5F86EA7925407F9700C5E852 /* Swinject in Frameworks */,
 				5F86EA0A25407B8600C5E852 /* RxViewBinder in Frameworks */,
@@ -93,6 +107,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F2AC70D254468E6003034AF /* CellViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5F2AC71025446A99003034AF /* SearchImageCellViewModel.swift */,
+			);
+			path = CellViewModel;
+			sourceTree = "<group>";
+		};
+		5F2CF8482545104700C942D7 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				5F2CF8492545105900C942D7 /* SearchImageDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
 		5F472432254076C1004CC06F = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +142,7 @@
 		5F47243D254076C1004CC06F /* ImageSearchExample */ = {
 			isa = PBXGroup;
 			children = (
+				5F2CF8482545104700C942D7 /* DTO */,
 				5F66D18D2542902200548ADF /* Common */,
 				5F66D0F525425E2100548ADF /* API */,
 				5F66D0F125425BFF00548ADF /* General */,
@@ -139,6 +170,7 @@
 		5F66D096254254FF00548ADF /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				5F7A8F1A2544533F004CD4DD /* ImageSearchRepositories.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -155,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				5F66D0F625425E3400548ADF /* BaseAPI.swift */,
+				5F7A8F162544500F004CD4DD /* SearchImageAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -179,12 +212,12 @@
 		5F66D1AB2542AF3B00548ADF /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				5F7A8F0D25431080004CD4DD /* Cells */,
 				5F66D1B62542BBF800548ADF /* Section */,
 				5F66D1AC2542AF4700548ADF /* HomeViewController.swift */,
 				5F66D1AD2542AF4700548ADF /* HomeViewModel.swift */,
 			);
-			name = Home;
-			path = Scene/Home;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		5F66D1B62542BBF800548ADF /* Section */ = {
@@ -202,6 +235,16 @@
 			);
 			name = SearchBar;
 			path = Scene/SearchBar;
+			sourceTree = "<group>";
+		};
+		5F7A8F0D25431080004CD4DD /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5F2AC70D254468E6003034AF /* CellViewModel */,
+				5F7A8F0F254310B8004CD4DD /* SearchImageCollectionViewCell.swift */,
+				5F2AC70825446870003034AF /* EmptyCollectionViewCell.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		5F86EA6C25407D2500C5E852 /* Core */ = {
@@ -228,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				5F66D1A82542A69D00548ADF /* BaseViewController.swift */,
+				5F7A8F132543111E004CD4DD /* BaseCollectionViewCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -244,6 +288,7 @@
 		5F86EA7425407E4C00C5E852 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				5F7A8F1D2544549E004CD4DD /* ImageSearchUseCase.swift */,
 			);
 			name = UseCase;
 			sourceTree = "<group>";
@@ -292,7 +337,6 @@
 				5F86EA7B25407FE100C5E852 /* ObjectMapper */,
 				5F86EA7E2540802B00C5E852 /* Differentiator */,
 				5F86EA802540802B00C5E852 /* RxDataSources */,
-				5F86EA84254080DF00C5E852 /* RxSwiftExt */,
 				5F86EA872540814500C5E852 /* CocoaLumberjackSwift */,
 				5F86EA8B2540820B00C5E852 /* Kingfisher */,
 				5F86EA8E2540828E00C5E852 /* ReusableKit */,
@@ -335,7 +379,6 @@
 				5F86EA7725407F9700C5E852 /* XCRemoteSwiftPackageReference "Swinject" */,
 				5F86EA7A25407FE100C5E852 /* XCRemoteSwiftPackageReference "ObjectMapper" */,
 				5F86EA7D2540802B00C5E852 /* XCRemoteSwiftPackageReference "RxDataSources" */,
-				5F86EA83254080DF00C5E852 /* XCRemoteSwiftPackageReference "RxSwiftExt" */,
 				5F86EA862540814500C5E852 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 				5F86EA8A2540820B00C5E852 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				5F86EA8D2540828D00C5E852 /* XCRemoteSwiftPackageReference "ReusableKit" */,
@@ -373,9 +416,16 @@
 				5F66D1AF2542AF4700548ADF /* HomeViewModel.swift in Sources */,
 				5F66D1B42542B48000548ADF /* SearchBarContainerView.swift in Sources */,
 				5F66D0F725425E3400548ADF /* BaseAPI.swift in Sources */,
+				5F2AC70A25446870003034AF /* EmptyCollectionViewCell.swift in Sources */,
 				5F66D19D2542A20F00548ADF /* AccessToKenPlugin.swift in Sources */,
+				5F7A8F1B2544533F004CD4DD /* ImageSearchRepositories.swift in Sources */,
+				5F7A8F172544500F004CD4DD /* SearchImageAPI.swift in Sources */,
+				5F7A8F142543111E004CD4DD /* BaseCollectionViewCell.swift in Sources */,
 				5F66D1AE2542AF4700548ADF /* HomeViewController.swift in Sources */,
 				5F66D1A92542A69D00548ADF /* BaseViewController.swift in Sources */,
+				5F7A8F1E2544549E004CD4DD /* ImageSearchUseCase.swift in Sources */,
+				5F7A8F11254310B8004CD4DD /* SearchImageCollectionViewCell.swift in Sources */,
+				5F2CF84A2545105900C942D7 /* SearchImageDTO.swift in Sources */,
 				5F66D1882542793000548ADF /* Conversion.swift in Sources */,
 				5F66D18B25427B9500548ADF /* Search.swift in Sources */,
 				5F66D1A02542A33700548ADF /* AppInject.swift in Sources */,
@@ -384,6 +434,7 @@
 				5F66D1B82542BC1700548ADF /* HomeSection.swift in Sources */,
 				5F66D1A52542A60300548ADF /* NetworkingConnectionErrorViewController.swift in Sources */,
 				5F66D0F325425C0F00548ADF /* Enviroment.swift in Sources */,
+				5F2AC71125446A99003034AF /* SearchImageCellViewModel.swift in Sources */,
 				5F66D199254299EE00548ADF /* AppNavigator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -644,14 +695,6 @@
 				minimumVersion = 4.0.1;
 			};
 		};
-		5F86EA83254080DF00C5E852 /* XCRemoteSwiftPackageReference "RxSwiftExt" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxSwiftExt";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.2.0;
-			};
-		};
 		5F86EA862540814500C5E852 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
@@ -726,11 +769,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5F86EA7D2540802B00C5E852 /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
-		};
-		5F86EA84254080DF00C5E852 /* RxSwiftExt */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5F86EA83254080DF00C5E852 /* XCRemoteSwiftPackageReference "RxSwiftExt" */;
-			productName = RxSwiftExt;
 		};
 		5F86EA872540814500C5E852 /* CocoaLumberjackSwift */ = {
 			isa = XCSwiftPackageProductDependency;

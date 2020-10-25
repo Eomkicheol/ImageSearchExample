@@ -11,9 +11,9 @@ import RxDataSources
 
 struct HomeSection {
 	enum Identity: Int {
-		case searchImage
+		case image
+		case empty
 	}
-	
 	let identity: Identity
 	var items: [HomeSectionItem]
 }
@@ -25,5 +25,6 @@ extension HomeSection: SectionModelType {
 }
 
 enum HomeSectionItem {
-	case searchImageItem
+	case searchImageItem(SearchImageCellViewModel)
+	case empty
 }
