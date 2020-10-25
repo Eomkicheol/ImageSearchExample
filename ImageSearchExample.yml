@@ -16,12 +16,12 @@ targets:
       - package: RxSwift
       - package: Swinject
       - package: ObjectMapper
-      - package: Swinject
-      - package: RxDataSource
+      - package: RxDataSources
       - package: CocoaLumberjack
       - package: Kingfisher
       - package: ReusableKit
       - package: RxViewController
-
-
-
+      - package: RxViewBinder
+      - package: CocoaLumberjackSwift
+      - package: RxMoya
+      

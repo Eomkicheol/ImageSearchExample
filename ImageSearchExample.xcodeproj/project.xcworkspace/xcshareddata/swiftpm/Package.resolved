@@ -21,7 +21,7 @@
       },
       {
         "package": "Kingfisher",
-        "repositoryURL": "https://github.com/onevcat/Kingfisher",
+        "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
         "state": {
           "branch": null,
           "revision": "1aa9889e5f7d9d92acda014eea9cdc7338d3d7d6",
@@ -57,7 +57,7 @@
       },
       {
         "package": "ReusableKit",
-        "repositoryURL": "https://github.com/devxoul/ReusableKit",
+        "repositoryURL": "https://github.com/devxoul/ReusableKit.git",
         "state": {
           "branch": null,
           "revision": "9a5756ba41f7a864ff0738c21876d52b9e67eec7",
@@ -93,7 +93,7 @@
       },
       {
         "package": "RxViewBinder",
-        "repositoryURL": "https://github.com/magi82/RxViewBinder",
+        "repositoryURL": "https://github.com/magi82/RxViewBinder.git",
         "state": {
           "branch": null,
           "revision": "d0b99aee333c95ded5fd6399af6338c5f156e2e8",
@@ -102,7 +102,7 @@
       },
       {
         "package": "RxViewController",
-        "repositoryURL": "https://github.com/devxoul/RxViewController",
+        "repositoryURL": "https://github.com/devxoul/RxViewController.git",
         "state": {
           "branch": null,
           "revision": "2974fc02742497ee26ba3622ced199818d580444",
@@ -138,7 +138,7 @@
       },
       {
         "package": "Then",
-        "repositoryURL": "https://github.com/devxoul/Then",
+        "repositoryURL": "https://github.com/devxoul/Then.git",
         "state": {
           "branch": null,
           "revision": "e421a7b3440a271834337694e6050133a3958bc7",
