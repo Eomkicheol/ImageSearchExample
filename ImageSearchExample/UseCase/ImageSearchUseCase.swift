@@ -9,7 +9,8 @@ import RxCocoa
 import RxSwift
 
 protocol ImageSearchUseCaseProtocol: class {
-	func searchImage(query: String) -> Observable<String>
+	func searchImage(query: String, size: Int) -> Observable<String>
+	func loadMoreSearchImage(dto: PaginationDTO) -> Observable<String>
 }
 
 final class ImageSearchUseCase: ImageSearchUseCaseProtocol {
@@ -20,7 +21,11 @@ final class ImageSearchUseCase: ImageSearchUseCaseProtocol {
 		self.searchImageRepository = searchImageRepository
 	}
 
-	func searchImage(query: String) -> Observable<String> {
-		return self.searchImageRepository.searchImage(query: query)
+	func searchImage(query: String, size: Int) -> Observable<String> {
+		return self.searchImageRepository.searchImage(query: query, size: size)
+	}
+
+	func loadMoreSearchImage(dto: PaginationDTO) -> Observable<String> {
+		return self.searchImageRepository.loadMoreSearchImage(dto: dto)
 	}
 }

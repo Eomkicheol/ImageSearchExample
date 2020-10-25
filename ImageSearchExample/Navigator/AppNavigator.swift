@@ -58,7 +58,7 @@ private func homeBuilder() -> UIViewController {
 
 	let viewModel: HomeViewModel = HomeViewModel(service: service,
 	                                             searchImageSection: searchImageSection,
-	                                             emptysection: emptySection)
+												 emptysection: emptySection)
 	let viewController: HomeViewController = HomeViewController(viewBinder: viewModel)
 	let navigationController: UINavigationController = UINavigationController(rootViewController: viewController)
 	return navigationController

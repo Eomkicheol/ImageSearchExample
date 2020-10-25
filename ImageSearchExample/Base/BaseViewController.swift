@@ -22,6 +22,11 @@ class BaseViewController: UIViewController {
 
 	// MARK: UI Properties
 
+	let networkIndicatorView = NetworkIndicatorView().then {
+		$0.isHidden = true
+		$0.isUserInteractionEnabled = false
+	}
+
 
 	// MARK: Initializing
 
@@ -67,7 +72,6 @@ class BaseViewController: UIViewController {
 			self.didSetupConstraints = true
 		}
 		super.updateViewConstraints()
-
 	}
 
 	//뷰컨트롤러의 뷰가 하위뷰를 표시했음을 알리기 위해 호출
@@ -80,13 +84,26 @@ class BaseViewController: UIViewController {
 	}
 
 	// MARK: Func
-	func configureUI() { }
+	func configureUI() {
+		[networkIndicatorView].forEach {
+			self.view.addSubview($0)
+		}
+	}
 
-	func setupConstraints() { }
+	func setupConstraints() {
+		networkIndicatorView.snp.makeConstraints {
+			$0.edges.equalToSuperview()
+		}
+	}
 
 	func setupSubViews() { }
 
-	func command() { }
+	func command() {
+		self.rx.viewDidDisappear
+			.map { _ in false }
+			.bind(to: self.rx.networking)
+			.disposed(by: self.baseDisposeBag)
+	}
 
 	func state() { }
 
@@ -100,3 +117,17 @@ class BaseViewController: UIViewController {
 }
 
 extension BaseViewController: UIGestureRecognizerDelegate { }
+
+// MARK: - Reactive
+
+extension Reactive where Base: BaseViewController {
+
+	// Bindable sink for networking
+	var networking: Binder<Bool> {
+		return Binder(self.base) { viewController, isNetworking in
+			viewController.view.bringSubviewToFront(viewController.networkIndicatorView)
+			viewController.networkIndicatorView.isHidden = !isNetworking
+			UIApplication.shared.isNetworkActivityIndicatorVisible = isNetworking
+		}
+	}
+}

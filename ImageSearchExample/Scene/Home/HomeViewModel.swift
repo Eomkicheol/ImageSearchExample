@@ -16,7 +16,9 @@ final class HomeViewModel: ViewBindable {
 
 	// MARK: Constants
 
-	private enum Constants { }
+	private enum Constants {
+		static let itemCount: Int = 30
+	}
 
 	// MARK: Command
 
@@ -24,27 +26,31 @@ final class HomeViewModel: ViewBindable {
 		case showKeyboard
 		case searchKeyword(String)
 		case selectedItem(Int)
+		case fetchListMore
 	}
 
 	// MARK: Action
 
 	struct Action {
-		let fetchSearchImageAction: BehaviorRelay<[HomeSection]> = BehaviorRelay(value: [])
+		let fetchSearchImageAction: BehaviorRelay<[HomeSection]?> = BehaviorRelay(value: [])
 		let showKeyboardAction: PublishRelay<Void> = PublishRelay()
 		let moveToDetailImageAction: PublishRelay<SearchImageDTO> = PublishRelay()
+		let isNetworkingAction: BehaviorRelay<Bool> = BehaviorRelay(value: false)
 	}
 
 	// MARK: State
 
 	struct State {
-		let fetchSearchImage: Driver<[HomeSection]>
+		let fetchSearchImage: Driver<[HomeSection]?>
 		let showKeyboard: Driver<Void>
 		let moveToDetailImage: Driver<SearchImageDTO>
+		let isNetworking: Driver<Bool>
 
 		init(action: Action) {
-			fetchSearchImage = action.fetchSearchImageAction.asDriver(onErrorJustReturn: [])
+			fetchSearchImage = action.fetchSearchImageAction.asDriver(onErrorJustReturn: nil)
 			showKeyboard = action.showKeyboardAction.asDriver(onErrorJustReturn: ())
 			moveToDetailImage = action.moveToDetailImageAction.asDriver(onErrorJustReturn: SearchImageDTO(imageUrl: "", displaySiteName: "", dateTime: "", width: 0, height: 0))
+			isNetworking = action.isNetworkingAction.asDriver(onErrorJustReturn: false)
 		}
 	}
 
@@ -53,6 +59,10 @@ final class HomeViewModel: ViewBindable {
 	let emptySection: (Search) -> HomeSection
 
 	// MARK: Properties
+
+	var itemMaxCount: Int = 0
+	var isEnd: Bool = false
+	var searchDTO = PaginationDTO(query: "", page: 1, size: Constants.itemCount)
 
 	var _sections: [HomeSection] = [HomeSection(identity: .image, items: []),
 		HomeSection(identity: .empty, items: [])]
@@ -92,6 +102,8 @@ final class HomeViewModel: ViewBindable {
 			self.searchImage(keyword)
 		case .selectedItem(let index):
 			self.itemSelected(index)
+		case .fetchListMore:
+			loadMoreImageList()
 		}
 	}
 
@@ -101,19 +113,42 @@ final class HomeViewModel: ViewBindable {
 
 	private func searchImage(_ keyword: String) {
 
-
 		let ob = Observable<String>.just(keyword).publish()
 
+		self.searchDTO.query = keyword
 
 		ob.filter { keyword -> Bool in
 			return keyword != ""
 		}
-			.flatMap { _ -> Observable<String> in
-				return self.service.searchImage(query: keyword)
+			.flatMapLatest { _ -> Observable<String> in
+				return self.service.searchImage(query: keyword,
+				                                size: Constants.itemCount)
+			}
+			.catchError { error -> Observable<String> in
+				let alertActions: [BaseAlertAction] = [.cancel, .ok]
+				return AlertService.shared.show(title: "",
+				                                message: error.localizedDescription,
+				                                preferredStyle: .alert,
+				                                actions: alertActions)
+					.do(onNext: { [weak self] alertAction in
+						switch alertAction {
+						case .ok:
+							self?.searchImage(keyword)
+						case .cancel:
+							break
+						}
+					})
+					.flatMap { _ -> Observable<String> in
+						return Observable.empty()
+				}
 			}
 			.map { res -> Search in
 				return Search(JSONString: res) ?? Search()
 			}
+			.do(onNext: { [weak self] items in
+				self?.itemMaxCount = items.meta.totalCount
+				self?.isEnd = items.meta.isEnd
+			})
 			.map { [weak self] entities -> [HomeSection] in
 				guard let self = self else { return [] }
 
@@ -126,7 +161,6 @@ final class HomeViewModel: ViewBindable {
 				self?.action.fetchSearchImageAction.accept($0)
 			})
 			.disposed(by: self.disposeBag)
-
 
 		ob
 			.filter { keyword -> Bool in
@@ -155,11 +189,71 @@ final class HomeViewModel: ViewBindable {
 		let document = cellModel[target].items
 
 		let dto = SearchImageDTO(imageUrl: document.imageUrl,
-								 displaySiteName: document.displaySitename,
-								 dateTime: document.datetime,
-								 width: document.width,
-								 height: document.height)
+		                         displaySiteName: document.displaySitename,
+		                         dateTime: document.datetime,
+		                         width: document.width,
+		                         height: document.height)
 
 		self.action.moveToDetailImageAction.accept(dto)
+	}
+
+	private func loadMoreImageList() {
+		let items = self.sections[HomeSection.Identity.image.rawValue].items
+
+		guard items.count < self.itemMaxCount, items.count != 0, self.isEnd != true else { return }
+
+		guard action.isNetworkingAction.value == false else { return }
+
+		let page = (items.count - Constants.itemCount) / Constants.itemCount + 1
+
+		self.searchDTO.page = page
+		let dto = self.searchDTO
+
+		Observable<Int>.timer(.milliseconds(5), scheduler: ConcurrentDispatchQueueScheduler.init(qos: .background))
+			.do(onNext: { [weak self] _ in
+				self?.action.isNetworkingAction.accept(true)
+			})
+			.flatMapLatest { [weak self] _ -> Observable<String> in
+				guard let self = self else { return .empty() }
+				return self.service.loadMoreSearchImage(dto: dto)
+			}
+			.catchError { error -> Observable<String> in
+				let alertActions: [BaseAlertAction] = [.cancel, .ok]
+				return AlertService.shared.show(title: "",
+				                                message: error.localizedDescription,
+				                                preferredStyle: .alert,
+				                                actions: alertActions)
+					.do(onNext: { [weak self] alertAction in
+						switch alertAction {
+						case .ok:
+							self?.loadMoreImageList()
+						case .cancel:
+							break
+						}
+					})
+					.flatMap { _ -> Observable<String> in
+						return Observable.empty()
+				}
+			}
+			.compactMap { Search(JSONString: $0) }
+			.map { ($0.documents, $0.meta.totalCount, $0.meta.isEnd) }
+			.do(onNext: { [weak self] items in
+				let (_, totalCount, isEnd) = items
+				self?.itemMaxCount = totalCount
+				self?.isEnd = isEnd
+				self?.action.isNetworkingAction.accept(false)
+			}, onError: { [weak self] _ in
+				self?.action.isNetworkingAction.accept(false)
+			})
+			.subscribe(onNext: { [weak self] items in
+				let (list, _, _) = items
+				let cellViewModl = list.map { SearchImageCellViewModel(items: $0) }.map(HomeSectionItem.searchImageItem)
+
+				self?.sections[HomeSection.Identity.image.rawValue].items.append(contentsOf: cellViewModl)
+				if let section = self?.sections {
+					self?.action.fetchSearchImageAction.accept(section)
+				}
+			})
+			.disposed(by: self.disposeBag)
 	}
 }

@@ -37,7 +37,11 @@ final class HomeViewController: BaseViewController, BindView {
 		switch item {
 		case .searchImageItem(let viewModel):
 			let cell = collectionView.dequeue(Reusable.imageCell, for: indexPath)
-			cell.configure(viewBinder: viewModel)
+
+			if viewModel !== cell.viewBinder {
+				cell.configure(viewBinder: viewModel)
+			}
+
 			return cell
 
 		case .empty:
@@ -67,7 +71,6 @@ final class HomeViewController: BaseViewController, BindView {
 		view.backgroundColor = UIColor(red: 242 / 255, green: 242 / 255, blue: 243 / 255, alpha: 1.0)
 		view.contentInset.bottom = 80
 
-		view.showsVerticalScrollIndicator = false
 		view.showsHorizontalScrollIndicator = false
 		view.keyboardDismissMode = .onDrag
 		view.contentInsetAdjustmentBehavior = .never
@@ -126,6 +129,7 @@ final class HomeViewController: BaseViewController, BindView {
 		showKeyboardBindCommand(viewBinder: viewBinder)
 		searchBindCommand(viewBinder: viewBinder)
 		imageSelectedBindCommand(viewBinder: viewBinder)
+		loadMoreImageListBindCommand(viewBinder: viewBinder)
 	}
 
 	// MARK: CommandBind
@@ -133,6 +137,7 @@ final class HomeViewController: BaseViewController, BindView {
 	private func searchBindCommand(viewBinder: HomeViewModel) {
 		self.searchBar.rx.text.changed
 			.debounce(.seconds(1), scheduler: MainScheduler.instance)
+			.distinctUntilChanged()
 			.map({ keyword -> ViewBinder.Command in
 				return ViewBinder.Command.searchKeyword(keyword ?? "")
 			})
@@ -157,6 +162,19 @@ final class HomeViewController: BaseViewController, BindView {
 			.disposed(by: self.disposeBag)
 	}
 
+	private func loadMoreImageListBindCommand(viewBinder: HomeViewModel) {
+		collectionView.rx.willDisplayCell
+			.filter { [weak self] indexPath -> Bool in
+				guard let sectionCount = self?.dataSource.sectionModels[indexPath.at.section].items.count else { return false }
+				return indexPath.at.row == sectionCount - 1
+			}
+			.map { _ -> ViewBinder.Command in
+				return ViewBinder.Command.fetchListMore
+			}
+			.bind(to: viewBinder.command)
+			.disposed(by: self.disposeBag)
+	}
+
 	// MARK: State
 
 	func state(viewBinder: HomeViewModel) {
@@ -166,6 +184,7 @@ final class HomeViewController: BaseViewController, BindView {
 		showKeyboardState(viewBinder: viewBinder)
 		fetchSearchImageState(viewBinder: viewBinder)
 		moveToDetailImageState(viewBinder: viewBinder)
+		isNetworkingState(viewBinder: viewBinder)
 	}
 
 	//MARK -- delegateState
@@ -189,6 +208,7 @@ final class HomeViewController: BaseViewController, BindView {
 			.do(onNext: { [weak self] _ in
 				self?.searchBar.resignFirstResponder()
 			})
+			.compactMap { $0 }
 			.drive(collectionView.rx.items(dataSource: dataSource))
 			.disposed(by: self.disposeBag)
 	}
@@ -199,6 +219,13 @@ final class HomeViewController: BaseViewController, BindView {
 			.drive(onNext: { [weak self] dto in
 				self?.navigationController?.pushViewController(AppNavigator.detail(dto: dto).viewController, animated: true)
 			})
+			.disposed(by: self.disposeBag)
+	}
+
+	private func isNetworkingState(viewBinder: HomeViewModel) {
+		viewBinder.state
+			.isNetworking
+			.drive(self.rx.networking)
 			.disposed(by: self.disposeBag)
 	}
 }
