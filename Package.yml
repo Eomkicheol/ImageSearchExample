@@ -1,0 +1,34 @@
+packages: 
+  SnapKit:
+    url: https://github.com/SnapKit/SnapKit.git
+    from: 5.0.1
+  Moya:
+    url: https://github.com/Moya/Moya.git
+    from: 14.0.0
+  Then: 
+    url: https://github.com/devxoul/Then.git
+    from: 2.7.0
+  RxSwift:
+    url: ttps://github.com/ReactiveX/RxSwift.git
+    from: 5.1.1
+  Swinject:
+    url: https://github.com/Swinject/Swinject.git
+    from: 2.7.1
+  ObjectMapper:
+    url: https://github.com/tristanhimmelman/ObjectMapper.git
+    from: 4.2.0
+  RxDataSource:
+    url: https://github.com/RxSwiftCommunity/RxDataSources.git
+    from: 4.0.1
+  CocoaLumberjack:
+    url: https://github.com/CocoaLumberjack/CocoaLumberjack.git
+    from: 3.7.0
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher.git
+    from: 5.15.6
+  ReusableKit:
+    url: https://github.com/devxoul/ReusableKit.git
+    from: 3.0.0
+  RxViewController:
+    url: https://github.com/devxoul/RxViewController.git
+    from: 3.0.0
