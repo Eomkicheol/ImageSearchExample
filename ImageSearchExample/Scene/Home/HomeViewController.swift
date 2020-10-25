@@ -66,6 +66,7 @@ final class HomeViewController: BaseViewController, BindView {
 
 		view.backgroundColor = UIColor(red: 242 / 255, green: 242 / 255, blue: 243 / 255, alpha: 1.0)
 		view.contentInset.bottom = 80
+
 		view.showsVerticalScrollIndicator = false
 		view.showsHorizontalScrollIndicator = false
 		view.keyboardDismissMode = .onDrag
@@ -113,16 +114,23 @@ final class HomeViewController: BaseViewController, BindView {
 		}
 	}
 
+	private func configureNavigationBar() {
+		self.navigationItem.titleView = searchBaContainerView
+	}
+
 	// MARK: Command
 
 	func command(viewBinder: HomeViewModel) {
 		super.command()
 
-		self.rx.viewDidAppear
-			.map { _ in ViewBinder.Command.showKeyboard }
-			.bind(to: viewBinder.command)
-			.disposed(by: self.disposeBag)
+		showKeyboardBindCommand(viewBinder: viewBinder)
+		searchBindCommand(viewBinder: viewBinder)
+		imageSelectedBindCommand(viewBinder: viewBinder)
+	}
 
+	// MARK: CommandBind
+
+	private func searchBindCommand(viewBinder: HomeViewModel) {
 		self.searchBar.rx.text.changed
 			.debounce(.seconds(1), scheduler: MainScheduler.instance)
 			.map({ keyword -> ViewBinder.Command in
@@ -130,7 +138,16 @@ final class HomeViewController: BaseViewController, BindView {
 			})
 			.bind(to: viewBinder.command)
 			.disposed(by: self.disposeBag)
+	}
 
+	private func showKeyboardBindCommand(viewBinder: HomeViewModel) {
+		self.rx.viewDidAppear
+			.map { _ in ViewBinder.Command.showKeyboard }
+			.bind(to: viewBinder.command)
+			.disposed(by: self.disposeBag)
+	}
+
+	private func imageSelectedBindCommand(viewBinder: HomeViewModel) {
 		collectionView.rx.itemSelected
 			.throttle(.milliseconds(5), scheduler: MainScheduler.instance)
 			.map { indexPath -> ViewBinder.Command in
@@ -145,15 +162,28 @@ final class HomeViewController: BaseViewController, BindView {
 	func state(viewBinder: HomeViewModel) {
 		super.state()
 
-		collectionView.rx.setDelegate(self).disposed(by: self.disposeBag)
+		delegateState()
+		showKeyboardState(viewBinder: viewBinder)
+		fetchSearchImageState(viewBinder: viewBinder)
+		moveToDetailImageState(viewBinder: viewBinder)
+	}
 
+	//MARK -- delegateState
+
+	private func delegateState() {
+		collectionView.rx.setDelegate(self).disposed(by: self.disposeBag)
+	}
+
+	private func showKeyboardState(viewBinder: HomeViewModel) {
 		viewBinder.state
 			.showKeyboard
 			.drive(onNext: { [weak self] in
 				self?.searchBar.becomeFirstResponder()
 			})
 			.disposed(by: self.disposeBag)
+	}
 
+	private func fetchSearchImageState(viewBinder: HomeViewModel) {
 		viewBinder.state
 			.fetchSearchImage
 			.do(onNext: { [weak self] _ in
@@ -161,17 +191,15 @@ final class HomeViewController: BaseViewController, BindView {
 			})
 			.drive(collectionView.rx.items(dataSource: dataSource))
 			.disposed(by: self.disposeBag)
+	}
 
+	private func moveToDetailImageState(viewBinder: HomeViewModel) {
 		viewBinder.state
 			.moveToDetailImage
 			.drive(onNext: { [weak self] dto in
 				self?.navigationController?.pushViewController(AppNavigator.detail(dto: dto).viewController, animated: true)
 			})
 			.disposed(by: self.disposeBag)
-	}
-
-	private func configureNavigationBar() {
-		self.navigationItem.titleView = searchBaContainerView
 	}
 }
 
