@@ -81,14 +81,4 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-ImageSearchExample/Scene/SearchBar/.DS_Store
-
-ImageSearchExample/Scene/.DS_Store
-
-ImageSearchExample/Home/Section/.DS_Store
-
-ImageSearchExample/Home/.DS_Store
-
-ImageSearchExample/.DS_Store
-
-.DS_Store
+*.DS_Store
