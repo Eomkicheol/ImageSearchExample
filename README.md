@@ -1,18 +1,11 @@
-## Requirements
-* iOS 12+
-* Swift 5
-* xcodegen
-
-## Installation
+ImageSearchExample
+Installation
 If xcodegen is not installed, install xcodegen using Homebrew
-```
-brew install xcodegen
-```
 
+brew install xcodegen
 Make project
-```
-git clone https://github.com/audrl1010/Eber.git
-cd Eber
+
+git clone https://github.com/Eomkicheol/ImageSearchExample.git
+cd ImageSearchExample
 make project
-open Eber.xcworkspace
-```
+xed .
