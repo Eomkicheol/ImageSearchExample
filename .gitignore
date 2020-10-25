@@ -80,3 +80,15 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+ImageSearchExample/Scene/SearchBar/.DS_Store
+
+ImageSearchExample/Scene/.DS_Store
+
+ImageSearchExample/Home/Section/.DS_Store
+
+ImageSearchExample/Home/.DS_Store
+
+ImageSearchExample/.DS_Store
+
+.DS_Store
