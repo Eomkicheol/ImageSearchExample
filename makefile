@@ -1,2 +1,2 @@
 project:
-	xcodegen generate --spec project.yml --use-cache
+	xcodegen generate --spec project.yml

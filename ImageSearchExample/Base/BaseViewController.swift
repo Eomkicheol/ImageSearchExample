@@ -20,9 +20,12 @@ class BaseViewController: UIViewController {
 	private(set) var didSetupConstraints = false
 	private(set) var didSetupSubViews = false
 
-	private var scrollViewOriginalContentInsetAdjustmentBehaviorRawValue: Int?
-
 	// MARK: UI Properties
+
+	let networkIndicatorView = NetworkIndicatorView().then {
+		$0.isHidden = true
+		$0.isUserInteractionEnabled = false
+	}
 
 
 	// MARK: Initializing
@@ -49,17 +52,6 @@ class BaseViewController: UIViewController {
 		self.configureUI()
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-		//fix is 11 scroll view bug
-		if let scrollView = self.view.subviews.first as? UIScrollView {
-			self.scrollViewOriginalContentInsetAdjustmentBehaviorRawValue = scrollView.contentInsetAdjustmentBehavior.rawValue
-			scrollView.contentInsetAdjustmentBehavior = .never
-		}
-
-	}
-
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
@@ -68,12 +60,6 @@ class BaseViewController: UIViewController {
 
 		} else {
 			self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-		}
-
-		if let scrollView = self.view.subviews.first as? UIScrollView,
-			let rawValue = self.scrollViewOriginalContentInsetAdjustmentBehaviorRawValue,
-			let behavior = UIScrollView.ContentInsetAdjustmentBehavior(rawValue: rawValue) {
-			scrollView.contentInsetAdjustmentBehavior = behavior
 		}
 	}
 
@@ -86,7 +72,6 @@ class BaseViewController: UIViewController {
 			self.didSetupConstraints = true
 		}
 		super.updateViewConstraints()
-
 	}
 
 	//뷰컨트롤러의 뷰가 하위뷰를 표시했음을 알리기 위해 호출
@@ -99,13 +84,26 @@ class BaseViewController: UIViewController {
 	}
 
 	// MARK: Func
-	func configureUI() { }
+	func configureUI() {
+		[networkIndicatorView].forEach {
+			self.view.addSubview($0)
+		}
+	}
 
-	func setupConstraints() { }
+	func setupConstraints() {
+		networkIndicatorView.snp.makeConstraints {
+			$0.edges.equalToSuperview()
+		}
+	}
 
 	func setupSubViews() { }
 
-	func command() { }
+	func command() {
+		self.rx.viewDidDisappear
+			.map { _ in false }
+			.bind(to: self.rx.networking)
+			.disposed(by: self.baseDisposeBag)
+	}
 
 	func state() { }
 
@@ -119,3 +117,17 @@ class BaseViewController: UIViewController {
 }
 
 extension BaseViewController: UIGestureRecognizerDelegate { }
+
+// MARK: - Reactive
+
+extension Reactive where Base: BaseViewController {
+
+	// Bindable sink for networking
+	var networking: Binder<Bool> {
+		return Binder(self.base) { viewController, isNetworking in
+			viewController.view.bringSubviewToFront(viewController.networkIndicatorView)
+			viewController.networkIndicatorView.isHidden = !isNetworking
+			UIApplication.shared.isNetworkActivityIndicatorVisible = isNetworking
+		}
+	}
+}

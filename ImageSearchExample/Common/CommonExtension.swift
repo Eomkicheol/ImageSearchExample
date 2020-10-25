@@ -28,4 +28,40 @@ extension UIWindow {
 	}
 }
 
+// MARK: - Dictionary
+extension Dictionary {
+	mutating func merge(dict: [Key: Value]) {
+		for (key, value) in dict {
+			updateValue(value, forKey: key)
+		}
+	}
+}
+
+// MARK: - 최상위 뷰컨
+extension UIApplication {
+	static func topViewController(ViewController: UIViewController? =
+									UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+
+		if let tabBarViewController = ViewController as? UITabBarController {
+			if let vc = tabBarViewController.selectedViewController {
+				return topViewController(ViewController: vc)
+			}
+		}
+
+		if let navigationViewController = ViewController as? UINavigationController {
+			if let vc = navigationViewController.visibleViewController {
+				return topViewController(ViewController: vc)
+			}
+		}
+
+		if let presentedViewController = ViewController?.presentedViewController {
+			return topViewController(ViewController: presentedViewController)
+		}
+
+
+
+		return ViewController
+	}
+}
+
 

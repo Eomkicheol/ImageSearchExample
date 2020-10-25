@@ -9,7 +9,7 @@ packages:
     url: https://github.com/devxoul/Then.git
     from: 2.7.0
   RxSwift:
-    url: ttps://github.com/ReactiveX/RxSwift.git
+    url: https://github.com/ReactiveX/RxSwift.git
     from: 5.1.1
   Swinject:
     url: https://github.com/Swinject/Swinject.git
@@ -17,7 +17,7 @@ packages:
   ObjectMapper:
     url: https://github.com/tristanhimmelman/ObjectMapper.git
     from: 4.2.0
-  RxDataSource:
+  RxDataSources:
     url: https://github.com/RxSwiftCommunity/RxDataSources.git
     from: 4.0.1
   CocoaLumberjack:
@@ -31,4 +31,13 @@ packages:
     from: 3.0.0
   RxViewController:
     url: https://github.com/devxoul/RxViewController.git
-    from: 3.0.0
+    from: 1.0.0
+  RxViewBinder:
+    url: https://github.com/magi82/RxViewBinder.git
+    from: 2.0.1
+  CocoaLumberjackSwift:
+    url: https://github.com/CocoaLumberjack/CocoaLumberjack.git
+    from: 3.7.0
+  RxMoya:
+    url: https://github.com/Moya/Moya.git
+    from: 14.0.0

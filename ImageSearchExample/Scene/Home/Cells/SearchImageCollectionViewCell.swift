@@ -34,6 +34,7 @@ final class SearchImageCollectionViewCell: BaseCollectionViewCell, BindCell {
 	let imageView = UIImageView().then { view in
 		view.contentMode = .scaleToFill
 		view.clipsToBounds = true
+		view.backgroundColor = .lightGray
 	}
 
 
@@ -78,7 +79,8 @@ final class SearchImageCollectionViewCell: BaseCollectionViewCell, BindCell {
 			.configureImage
 			.drive(onNext: { [weak self] items in
 				if let url = URL(string: items.thumbnailUrl) {
-					self?.imageView.kf.setImage(with: url, options: [.cacheMemoryOnly])
+					self?.imageView.kf.setImage(with: url, options: [.cacheMemoryOnly,
+																	 .transition(.fade(0.2))])
 				}
 			})
 			.disposed(by: self.disposeBag)

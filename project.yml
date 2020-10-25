@@ -2,41 +2,17 @@ name: ImagesearchExample
 attributes:
   ORGANIZATIONNAME: 엄기철
 include:
-  - ImageSearchExample.yml
   - Package.yml
+  - ImageSearchExample.yml
 configs:
   debug: debug
   release: release
 options:
    deploymentTarget:
-     iOS: 11.3
+     iOS: 12.0
    createIntermediateGroups: true
 schemes:
-  ImageSearchExample-Development:
-    build:
-      targets:
-        ImagesearchExample: all
-    run:
-      config: debug
-    test:
-      config: debug
-    profile:
-      config: debug
-    analyze:
-      config: debug
-    archive:
-      config: debug
   ImageSearchExample:
     build:
       targets:
         ImagesearchExample: all
-    run:
-      config: release
-    test:
-      config: release
-    profile:
-      config: release
-    analyze:
-      config: release
-    archive:
-      config: release
