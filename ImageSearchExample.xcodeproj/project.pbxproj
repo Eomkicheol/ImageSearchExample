@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -182,8 +182,7 @@
 		2B3A4B22A91F688F1EF3EF58 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				AD0A842AD375CECAD836C687 /* AlertService.swift */,
-				EEC8441F76705243893FE238 /* AlertServiceType.swift */,
+				5FF0BC192545D485000C646B /* AlertService */,
 				2E3AD6B8F4DB93CE8826255E /* ConnectionError */,
 				241B03EBF003EEBE98007A39 /* Custom */,
 				E63AAAF3302F47BED018C69B /* Detail */,
@@ -257,6 +256,16 @@
 				3ED36D9BE862E69F9342F98E /* LaunchScreen.storyboard */,
 			);
 			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		5FF0BC192545D485000C646B /* AlertService */ = {
+			isa = PBXGroup;
+			children = (
+				AD0A842AD375CECAD836C687 /* AlertService.swift */,
+				EEC8441F76705243893FE238 /* AlertServiceType.swift */,
+			);
+			name = AlertService;
+			path = ../../ImageSearchExample/Scene/AlertService;
 			sourceTree = "<group>";
 		};
 		6029F3AE4E601129152540B1 /* Section */ = {
@@ -405,14 +414,13 @@
 			attributes = {
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "엄기철";
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 8E384CDAE65471605A4A18F4 /* Build configuration list for PBXProject "ImagesearchExample" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				en,
 				Base,
 			);
 			mainGroup = 6D36975BDBAA092B9B47F793;
